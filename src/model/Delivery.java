@@ -1,6 +1,6 @@
 package model;
 
-public record Deliveries
+public record Delivery
         (Integer matchId,
          Integer inning,
          String battingTeam,

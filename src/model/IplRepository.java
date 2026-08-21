@@ -1,6 +1,8 @@
 package model;
 
 import database.DatabaseConnection;
+import reader.CsvDataLoader;
+import reader.CsvFileReader;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,7 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 public class IplRepository {
-    public void insertMatchesData(List<Matches> matches) {
+    public void insertRecords(){
+        CsvFileReader reader = new CsvFileReader();
+        insertMatchesData(reader.readMatchesData());
+        insertDeliveriesData(reader.readDeliveriesData());
+    }
+    private void insertMatchesData(List<Match> matches) {
         String query = """
         INSERT INTO matches (
             match_id, season, city, date, team1, team2,
@@ -21,7 +28,7 @@ public class IplRepository {
         """;
         try(Connection connection= DatabaseConnection.getConnection();
             PreparedStatement statement=connection.prepareStatement(query)){
-            for(Matches data:matches){
+            for(Match data:matches){
                 statement.setInt(1,data.matchId());
                 statement.setInt(2, data.season());
                 statement.setString(3, data.city());
@@ -51,7 +58,7 @@ public class IplRepository {
             System.out.println(e.getMessage());
         }
     }
-    public void insertDeliveriesData(List<Deliveries> deliveries) {
+    private void insertDeliveriesData(List<Delivery> deliveries) {
         String query = """
         INSERT INTO deliveries (
             match_id,
@@ -81,7 +88,7 @@ public class IplRepository {
         """;
         try(Connection connection =DatabaseConnection.getConnection();
             PreparedStatement statement=connection.prepareStatement(query)) {
-            for(Deliveries delivery: deliveries) {
+            for(Delivery delivery: deliveries) {
                 statement.setInt(1, delivery.matchId());
                 statement.setInt(2, delivery.inning());
                 statement.setString(3, delivery.battingTeam());

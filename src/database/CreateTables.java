@@ -3,7 +3,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 public class CreateTables {
-    public void createMatchesTable(){
+    public void createTables(){
+        createMatchesTable();
+        createDeliveriesTable();
+    }
+    private void createMatchesTable(){
         String query="CREATE TABLE IF NOT EXISTS matches( " +
                 "match_id INTEGER PRIMARY KEY," +
                 "season INTEGER,"+
@@ -31,7 +35,7 @@ public class CreateTables {
             System.err.println("Matches Table Creation Failed");
         }
     }
-    public void createDeliveriesTable(){
+    private void createDeliveriesTable(){
         String query="CREATE TABLE IF NOT EXISTS deliveries("+
                     "match_id INTEGER NOT NULL," +
                     "inning INTEGER NOT NULL," +

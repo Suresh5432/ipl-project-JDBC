@@ -3,7 +3,8 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplitLine {
+public final class SplitLine {
+    private SplitLine(){}
     public static String[] splitLine(String line){
         List<String> split=new ArrayList<>();
         StringBuilder value=new StringBuilder();

@@ -1,5 +1,5 @@
 package model;
-public record Matches
+public record Match
         (Integer matchId,
          Integer season,
          String city,

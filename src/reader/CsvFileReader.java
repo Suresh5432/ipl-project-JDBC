@@ -1,7 +1,7 @@
 package reader;
 
-import model.Deliveries;
-import model.Matches;
+import model.Delivery;
+import model.Match;
 import utils.SplitLine;
 
 import java.io.BufferedReader;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvFileReader {
-    public List<Matches>  readMatchesData(){
-        List<Matches> matches=new ArrayList<>();
+    public List<Match>  readMatchesData(){
+        List<Match> matches=new ArrayList<>();
         String file="src/data/matches.csv";
         try(BufferedReader reader=new BufferedReader(new FileReader(file))){
             String line=reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] split= SplitLine.splitLine(line);
-                Matches match=new Matches(
+                Match match=new Match(
                         Integer.parseInt(split[0]),
                         Integer.parseInt(split[1]),
                         split[2],
@@ -49,13 +49,14 @@ public class CsvFileReader {
         }
         return matches;
     }
-    public List<Deliveries> readDeliveriesData(){
-        List<Deliveries> data = new ArrayList<>();
-        try(BufferedReader reader=new BufferedReader(new FileReader("src/data/deliveries.csv"))){
+    public List<Delivery> readDeliveriesData(){
+        List<Delivery> data = new ArrayList<>();
+        String file="src/data/deliveries.csv";
+        try(BufferedReader reader=new BufferedReader(new FileReader(file))){
             String line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] split = line.split(",", -1);
-                Deliveries delivery = new Deliveries(
+                Delivery delivery = new Delivery(
                         Integer.parseInt(split[0]),
                         Integer.parseInt(split[1]),
                         split[2],
